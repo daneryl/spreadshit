@@ -1,5 +1,6 @@
 import React from 'react';
+import { Grid } from './Grid';
 
-const App: React.FC = () => <div>APP !</div>;
+const App: React.FC = () => <Grid />
 
 export { App };

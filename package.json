@@ -12,12 +12,6 @@
     "url": "https://github.com/daneryl/spreadshit/issues"
   },
   "homepage": "https://www.uwazi.io/",
-  "jest": {
-    "projects": [
-      "app/jest.client.config.js",
-      "app/jest.server.config.js"
-    ]
-  },
   "scripts": {},
   "dependencies": {
     "react": "^16.12.0",
@@ -36,6 +30,7 @@
     "@babel/preset-env": "^7.7.6",
     "@babel/preset-react": "^7.7.4",
     "@babel/preset-typescript": "^7.7.4",
+    "@types/jest": "^24.0.23",
     "@types/react": "^16.9.16",
     "@types/react-dom": "^16.9.4",
     "babel-jest": "^24.9.0",
