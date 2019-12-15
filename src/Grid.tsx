@@ -1,46 +1,23 @@
 import React from 'react';
 import { Cell } from './Cell';
+import { Row } from './Row';
+import { arrayOf } from './utils';
 
-type gridProps = {
-  // title: string,
-  // paragraph: string
-};
-const alphabet = [
-  'A',
-  'B',
-  'C',
-  'D',
-  'E',
-  'F',
-  'G',
-  'H',
-  'I',
-  'J',
-  'K',
-  'L',
-  'M',
-  'N',
-  'O',
-  'P',
-  'Q',
-  'R',
-  'S',
-  'U',
-  'V',
-  'W',
-  'X',
-  'Y',
-  'Z'
-];
+interface GridProps {
+  rowsNumber: number;
+  columnsNumber: number;
+}
 
-export const Grid: React.FC = ({  }: gridProps) => (
+const Grid: React.FC<GridProps> = ({ rowsNumber, columnsNumber }: GridProps) => (
   <React.Fragment>
-    {[...Array(100)].map((_, n) => (
-      <div className="row">
-        {alphabet.map(() => (
-          <Cell />
+    {arrayOf(rowsNumber).map((row) => (
+      <Row key={'row' + row}>
+        {arrayOf(columnsNumber).map(column => (
+          <Cell key={'cell' + column} />
         ))}
-      </div>
+      </Row>
     ))}
   </React.Fragment>
 );
+
+export { Grid };
