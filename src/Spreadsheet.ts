@@ -5,12 +5,12 @@ const Spreadsheet = {
   },
 
   updateCell(value: string, x: string, y: string) {
-    grid[x+y] = value;
+    grid[x + y] = value;
   },
 
   getCellValue(x: string, y: string) {
-    return grid[x+y] ? grid[x+y] : '';
-  }
+    return grid[x + y] ? grid[x + y] : '';
+  },
 };
 
 export { Spreadsheet };

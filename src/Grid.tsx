@@ -9,15 +9,15 @@ interface GridProps {
 }
 
 const Grid: React.FC<GridProps> = ({ rowsNumber, columnsNumber }: GridProps) => (
-  <React.Fragment>
+  <>
     {arrayOf(rowsNumber).map((row) => (
-      <Row key={'row' + row}>
-        {arrayOf(columnsNumber).map(column => (
-          <Cell key={'cell' + column} />
+      <Row key={`row${row}`}>
+        {arrayOf(columnsNumber).map((column) => (
+          <Cell key={`cell${column}`} />
         ))}
       </Row>
     ))}
-  </React.Fragment>
+  </>
 );
 
 export { Grid };

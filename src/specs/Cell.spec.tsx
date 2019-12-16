@@ -1,19 +1,19 @@
-import React from 'react'
-import { shallow } from 'enzyme';
-import { Cell } from '../Cell';
+import React from 'react';
+import { shallow, configure } from 'enzyme';
 import Adapter from 'enzyme-adapter-react-16';
-import { configure } from 'enzyme';
+import { Cell } from '../Cell';
+
 configure({ adapter: new Adapter() });
-    
+
 describe('Cell', () => {
   it('should render the value passed', () => {
     const props = {
       value: 'value',
     };
 
-    const wrapper = shallow(<Cell {...props} />)
+    const wrapper = shallow(<Cell {...props} />);
     expect(wrapper.html()).toBe('<div>value</div>');
-  })
+  });
 
   describe('onClick', () => {
     it('should render an input with the originalValue', () => {
@@ -21,11 +21,11 @@ describe('Cell', () => {
         value: 'value',
       };
 
-      const wrapper = shallow(<Cell {...props} />)
+      const wrapper = shallow(<Cell {...props} />);
       wrapper.simulate('click');
       expect(wrapper.html()).toBe('<div><input/></div>');
-    })
-  })
+    });
+  });
 
   describe('onBlur', () => {
     it('should hide the input', () => {
@@ -33,10 +33,10 @@ describe('Cell', () => {
         value: 'value',
       };
 
-      const wrapper = shallow(<Cell {...props} />)
+      const wrapper = shallow(<Cell {...props} />);
       wrapper.simulate('click');
       wrapper.find('input').simulate('blur');
       expect(wrapper.html()).toBe('<div>value</div>');
-    })
-  })
-})
+    });
+  });
+});

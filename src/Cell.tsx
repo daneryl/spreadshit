@@ -12,7 +12,7 @@ class Cell extends React.Component<cellProps, cellState> {
   constructor(props: cellProps) {
     super(props);
     this.state = {
-      active: false
+      active: false,
     };
     this.active = this.active.bind(this);
     this.inactive = this.inactive.bind(this);
@@ -27,13 +27,11 @@ class Cell extends React.Component<cellProps, cellState> {
   }
 
   render() {
+    const { value } = this.props;
+    const { active } = this.state;
     return (
-      <div onClick={this.active}>
-        {this.state.active ? (
-          <input onBlur={this.inactive} />
-        ) : (
-          this.props.value
-        )}
+      <div onClick={this.active} role="button">
+        {active ? <input onBlur={this.inactive} /> : value}
       </div>
     );
   }
