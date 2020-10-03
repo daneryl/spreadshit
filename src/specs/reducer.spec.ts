@@ -48,7 +48,7 @@ describe('spreadsheet reducer', () => {
     expect(state.a1.value).toEqual('1');
   });
 
-  it('should be able to operate with arbitrary number', () => {
+  it('should be able to operate with arbitrary numbers', () => {
     const prevState: SpreadsheetData = {
       a2: { value: '66', rawValue: '66' },
     };

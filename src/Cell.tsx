@@ -1,59 +1,38 @@
-import React from 'react';
+import React, { FunctionComponent, useState } from 'react';
 import { Column } from './Column';
 import { Input } from './Input';
+import { CellData } from './reducer';
 
 interface cellProps {
-  value: string;
-  rawValue: string;
-  onChange: (e: any) => void;
+  cellData?: CellData;
+  onChange: (value: string) => void;
 }
 
-type cellState = {
-  active: boolean;
+const Cell: FunctionComponent<cellProps> = ({
+  cellData: { value, rawValue } = { value: '', rawValue: '' },
+  onChange,
+}: cellProps) => {
+  const [active, setActive] = useState(false);
+
+  return (
+    <Column
+      onClick={() => setActive(true)}
+      onFocus={() => setActive(true)}
+      tabIndex={0}
+      role="button"
+    >
+      {active ? (
+        <Input
+          autoFocus
+          value={rawValue}
+          onChange={(e) => onChange(e.target.value)}
+          onBlur={() => setActive(false)}
+        />
+      ) : (
+        value
+      )}
+    </Column>
+  );
 };
-
-class Cell extends React.Component<cellProps, cellState> {
-  constructor(props: cellProps) {
-    super(props);
-    this.state = {
-      active: false,
-    };
-    this.active = this.active.bind(this);
-    this.inactive = this.inactive.bind(this);
-  }
-
-  active() {
-    this.setState({ active: true });
-  }
-
-  inactive() {
-    this.setState({ active: false });
-  }
-
-  render() {
-    const { value, rawValue, onChange } = this.props;
-    const { active } = this.state;
-
-    return (
-      <Column
-        onClick={this.active}
-        onFocus={this.active}
-        tabIndex={0}
-        role="button"
-      >
-        {active ? (
-          <Input
-            value={rawValue}
-            autoFocus
-            onChange={onChange}
-            onBlur={this.inactive}
-          />
-        ) : (
-          value
-        )}
-      </Column>
-    );
-  }
-}
 
 export { Cell };

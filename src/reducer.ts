@@ -1,11 +1,13 @@
 import { parse } from './parser';
 
-export interface SpreadsheetData {
-  [k: string]: {
-    value: string;
-    rawValue: string;
-  };
-}
+export type CellData = {
+  value: string;
+  rawValue: string;
+};
+
+export type SpreadsheetData = {
+  [k: string]: CellData;
+};
 
 export type Action = {
   cell: string;
