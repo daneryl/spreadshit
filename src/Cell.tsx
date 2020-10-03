@@ -1,8 +1,11 @@
-import React, { CSSProperties } from 'react';
+import React from 'react';
+import { Column } from './Column';
+import { Input } from './Input';
 
 interface cellProps {
   value: string;
-  onChange: () => {}
+  rawValue: string;
+  onChange: (e: any) => void;
 }
 
 type cellState = {
@@ -28,21 +31,27 @@ class Cell extends React.Component<cellProps, cellState> {
   }
 
   render() {
-    const { value } = this.props;
+    const { value, rawValue, onChange } = this.props;
     const { active } = this.state;
 
-    const styles: CSSProperties = {
-      width: '100px',
-      height: '15px',
-      border: '1px solid red',
-      padding: '0',
-      float: 'left'
-    }
-
     return (
-      <div style={styles} onClick={this.active} onFocus={this.active} tabIndex={0} role="button">
-        {active ? <input style={{ width: '100px', height: '15px', margin: '0', border: '0' }} autoFocus onChange={this.props.onChange} onBlur={this.inactive} /> : value}
-      </div>
+      <Column
+        onClick={this.active}
+        onFocus={this.active}
+        tabIndex={0}
+        role="button"
+      >
+        {active ? (
+          <Input
+            value={rawValue}
+            autoFocus
+            onChange={onChange}
+            onBlur={this.inactive}
+          />
+        ) : (
+          value
+        )}
+      </Column>
     );
   }
 }
