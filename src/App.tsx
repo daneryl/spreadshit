@@ -1,6 +1,6 @@
 import React from 'react';
-import { Grid } from './Grid';
+import { SpreadSheet } from './SpreadSheet';
 
-const App: React.FC = () => <Grid />;
+const App: React.FC = () => <SpreadSheet />;
 
 export { App };
