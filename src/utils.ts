@@ -27,11 +27,9 @@ const alphabet = [
   'z',
 ];
 
-const arrayOf = (n: number) => [...Array(n)].map((_, key) => key + 1);
-
 const letters = (n: number) => alphabet.slice(0, n);
 
 const range = (start: number, end: number) =>
   Array.from({ length: end - start + 1 }, (_, i) => i + 1);
 
-export { arrayOf, letters, range };
+export { letters, range };

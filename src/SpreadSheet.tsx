@@ -1,7 +1,7 @@
 import React, { FunctionComponent, useReducer } from 'react';
 import { Cell } from './Cell';
 import { Row } from './Row';
-import { arrayOf, letters } from './utils';
+import { letters, range } from './utils';
 import { reducer } from './reducer';
 import { Column } from './Column';
 
@@ -24,7 +24,7 @@ const SpreadSheet: FunctionComponent<GridProps> = ({
           <Column key={letter}>{letter}</Column>
         ))}
       </Row>
-      {arrayOf(rows).map(row => (
+      {range(1, rows).map(row => (
         <Row key={row}>
           <Column key={row}>{row}</Column>
           {letters(columns).map(letter => (
