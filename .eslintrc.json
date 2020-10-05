@@ -16,12 +16,13 @@
   "plugins": ["react", "jest", "@typescript-eslint", "prettier"],
 
   "rules": {
-    "react/jsx-filename-extension": [1, { "extensions": [".tsx"] }],
-
-    "import/prefer-default-export": "off",
-    "import/no-unresolved": "off",
     "arrow-parens": "off",
     "newline-per-chained-call": "off",
+    "operator-linebreak": "off",
+
+    "react/jsx-filename-extension": [1, { "extensions": [".tsx"] }],
+    "import/prefer-default-export": "off",
+    "import/no-unresolved": "off",
     "implicit-arrow-linebreak": "off",
     "import/no-default-export": "error",
     "jsx-a11y/click-events-have-key-events": "off",

@@ -13,7 +13,8 @@
   },
   "homepage": "https://www.uwazi.io/",
   "scripts": {
-    "dev-server": "yarn react-scripts start"
+    "dev-server": "yarn react-scripts start",
+    "test": "jest --verbose --coverage;tsc --noEmit --pretty"
   },
   "dependencies": {
     "react": "^16.12.0",
