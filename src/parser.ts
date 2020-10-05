@@ -18,14 +18,10 @@ const performMath = (expression: string) =>
 const replaceCellWithValues = (
   expression: string,
   state: SpreadsheetData,
-): string => {
-  const cellsInvolved = expression.split(/[+|-]/g);
-  const translated = expression.replace(
-    new RegExp(cellsInvolved.join('|'), 'g'),
-    (match: string) => state[match]?.value || match,
-  );
-  return translated;
-};
+): string => expression.replace(
+  new RegExp(expression.split(/[+|-]/g).join('|'), 'g'),
+  (match: string) => state[match]?.value || match,
+);
 
 const expandRanges = (expression: string, state: SpreadsheetData) =>
   expression
@@ -49,30 +45,35 @@ const expandRanges = (expression: string, state: SpreadsheetData) =>
     }, [])
     .join(',');
 
+const parseFunction = (cellExpression: string) => {
+  const [, functionName, expression] =
+    cellExpression.match(/^(SUM|AVG)\((.*)\)/) || [];
+
+  if (!functionName) {
+    return ['default', cellExpression];
+  }
+
+  return [functionName, expression];
+};
+
 const parse = (value: string, state: SpreadsheetData): string => {
-  const [, expression] = value.match(/^=(.*)/) || [];
-  if (expression) {
+  const [, cellExpression] = value.match(/^=(.*)/) || [];
+  if (cellExpression) {
     try {
-      const [, sumExpression] = expression.match(/^SUM\((.*)\)/) || [];
-      if (sumExpression) {
-        return performMath(
-          replaceCellWithValues(
-            expandRanges(sumExpression, state).replace(/,/g, '+'),
-            state,
-          ),
-        ).toString();
+      const [functionName, expression] = parseFunction(cellExpression);
+
+      const mathExpression = replaceCellWithValues(
+        expandRanges(expression, state).replace(/,/g, '+'),
+        state,
+      );
+
+      let result = performMath(mathExpression);
+
+      if (functionName === 'AVG') {
+        result /= mathExpression.split('+').length;
       }
-      const [, avgExpression] = expression.match(/^AVG\((.*)\)/) || [];
-      if (avgExpression) {
-        const mathExpression = replaceCellWithValues(
-          expandRanges(avgExpression, state).replace(/,/g, '+'),
-          state,
-        );
-        return (
-          performMath(mathExpression) / mathExpression.split('+').length
-        ).toString();
-      }
-      return performMath(replaceCellWithValues(expression, state)).toString();
+
+      return result.toString();
     } catch (e) {
       return 'INVALID';
     }
